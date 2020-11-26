@@ -1,0 +1,84 @@
+#wrapper {
+  overflow-x: hidden;
+}
+
+#sidebar-wrapper {
+  min-height: 100vh;
+  padding-left: 15px;
+  padding-right: 0px;
+  -webkit-transition: margin 0.25s ease-out;
+  -moz-transition: margin 0.25s ease-out;
+  -o-transition: margin 0.25s ease-out;
+  transition: margin 0.25s ease-out;
+  animation: 0.4s ease-out fadeIn 1;
+}
+
+#sidebar-wrapper .sidebar-heading {
+  padding: 0.875rem;
+  font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+  width: 16rem;
+}
+
+.row {
+  width: 100%;
+}
+#page-content-wrapper {
+  min-width: 100vw;
+}
+#wrapper.toggled #sidebar-wrapper {
+  margin-left: 0;
+}
+
+.hidden {
+  animation-delay: 0.4s;
+  margin-left: -16rem !important;
+  margin-right: 2rem;
+}
+.fadeout {
+  animation: 0.4s ease-out fadeOut 1;
+}
+
+@media (min-width: 768px) {
+  #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: -15rem;
+  }
+}
+@media (max-width: 768px) {
+  #sidebar-wrapper {
+    margin-left: -16rem;
+    margin-right: 4rem;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    visibility: visible;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
