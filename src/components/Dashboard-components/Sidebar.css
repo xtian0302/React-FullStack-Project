@@ -10,7 +10,6 @@
   -moz-transition: margin 0.25s ease-out;
   -o-transition: margin 0.25s ease-out;
   transition: margin 0.25s ease-out;
-  animation: 0.4s ease-out fadeIn 1;
 }
 
 #sidebar-wrapper .sidebar-heading {
@@ -59,26 +58,5 @@
   #sidebar-wrapper {
     margin-left: -16rem;
     margin-right: 4rem;
-  }
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    visibility: hidden;
-  }
-  100% {
-    opacity: 1;
-    visibility: visible;
-  }
-}
-@keyframes fadeOut {
-  0% {
-    opacity: 1;
-    visibility: visible;
-  }
-  100% {
-    opacity: 0;
-    visibility: hidden;
   }
 }

@@ -38,6 +38,7 @@
     transform: rotate(360deg);
   }
 }
-#root {
+body {
   width: 100%;
+  background-color: rgba(85, 221, 255, 0.041);
 }
