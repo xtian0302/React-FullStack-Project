@@ -1,13 +1,25 @@
 import React from "react";
-import { Nav } from "react-bootstrap";
-import { withRouter } from "react-router";
 import "../Dashboard-components/Sidebar.css";
-import Link from "react-router-dom/Link";
 import logo from "../../logo.svg";
 
-const Sidebar = ({ setSideState, sideState }) => {
+const Sidebar = ({ setSideState, sideState, setPage }) => {
   const handleClick = () => {
     setSideState(false);
+  };
+  const mainClick = () => {
+    setPage("main");
+  };
+  const profileClick = () => {
+    setPage("profile");
+  };
+  const statusClick = () => {
+    setPage("status");
+  };
+  const eventsClick = () => {
+    setPage("events");
+  };
+  const shortcutsClick = () => {
+    setPage("shortcuts");
   };
   return (
     <>
@@ -25,19 +37,34 @@ const Sidebar = ({ setSideState, sideState }) => {
         />
       </div>
       <div className="list-group list-group-flush">
-        <a href="#" className="list-group-item list-group-item-action bg-light">
+        <a
+          className="list-group-item list-group-item-action bg-light"
+          onClick={mainClick}
+        >
           <i className="fas fa-tachometer-alt "></i>&nbsp; Dashboard
         </a>
-        <a href="#" className="list-group-item list-group-item-action bg-light">
+        <a
+          className="list-group-item list-group-item-action bg-light"
+          onClick={shortcutsClick}
+        >
           <i className="fas fa-link "></i>&nbsp; Shortcuts
         </a>
-        <a href="#" className="list-group-item list-group-item-action bg-light">
+        <a
+          className="list-group-item list-group-item-action bg-light"
+          onClick={eventsClick}
+        >
           <i className="fas fa-calendar-day "></i>&nbsp; Events
         </a>
-        <a href="#" className="list-group-item list-group-item-action bg-light">
+        <a
+          className="list-group-item list-group-item-action bg-light"
+          onClick={profileClick}
+        >
           <i className="fas fa-user "></i>&nbsp; Profile
         </a>
-        <a href="#" className="list-group-item list-group-item-action bg-light">
+        <a
+          className="list-group-item list-group-item-action bg-light"
+          onClick={statusClick}
+        >
           <i className="fas fa-question-circle "></i>&nbsp; Status
         </a>
       </div>

@@ -5,15 +5,16 @@ import Link from "react-router-dom/Link";
 import axios from "axios";
 import logo from "../logo.svg";
 
-const MyNavbar = ({ setIsAuthorized }) => {
+const MyNavbar = ({ setIsAuthorized, isAuthorized, username, setUsername }) => {
   const handleLogout = async () => {
     await axios({
       method: "GET",
       withCredentials: true,
-      url: "http://localhost:4000/logout",
+      url: "http://10.11.140.16:4000/logout",
     }).then((res) => {
       if (res.data) {
         setIsAuthorized(false);
+        setUsername("");
       }
     });
   };
@@ -34,16 +35,32 @@ const MyNavbar = ({ setIsAuthorized }) => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto"></Nav>
           <Nav>
-            <Nav.Link onClick={handleLogout}>Log Out</Nav.Link>
-            <Link to="/Dash" className="nav-link">
-              Dash Temp
-            </Link>
-            <Link to="/login" className="nav-link">
-              Login
-            </Link>
-            <Link to="/register" className="nav-link">
-              Register
-            </Link>
+            {(() => {
+              if (isAuthorized) {
+                return (
+                  <React.Fragment>
+                    <Navbar.Text>Welcome {username} </Navbar.Text> &nbsp;
+                    <Link to="/Dash" className="nav-link">
+                      <i className="fas fa-tachometer-alt"></i> Dashboard
+                    </Link>
+                    <Nav.Link onClick={handleLogout}>
+                      <i className="fas fa-sign-out-alt"></i> Log Out
+                    </Nav.Link>
+                  </React.Fragment>
+                );
+              } else {
+                return (
+                  <React.Fragment>
+                    <Link to="/login" className="nav-link">
+                      Login
+                    </Link>
+                    <Link to="/register" className="nav-link">
+                      Register
+                    </Link>
+                  </React.Fragment>
+                );
+              }
+            })()}
           </Nav>
         </Navbar.Collapse>
       </Navbar>

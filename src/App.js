@@ -1,4 +1,3 @@
-import Container from "react-bootstrap/Container";
 import axios from "axios";
 import React from "react";
 import { useState, useEffect } from "react";
@@ -8,54 +7,69 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import MyNavbar from "./components/MyNavbar";
 import AuthRoute from "./components/AuthRoute";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
   const [sideState, setSideState] = useState(true);
   const [isAuthorized, setIsAuthorized] = useState(false);
+  const [username, setUsername] = useState("");
 
   const checkUserAuth = async () => {
     await axios({
       method: "GET",
       withCredentials: true,
-      url: "http://localhost:4000/getUser",
+      url: "http://10.11.140.16:4000/getUser",
     }).then((res) => {
       if (res.data) {
         setIsAuthorized(true);
+        setUsername(res.data.username);
       } else {
         setIsAuthorized(false);
+        setUsername("");
       }
       console.log(res.data);
     });
   };
 
-  useEffect(async () => {
-    await checkUserAuth();
+  useEffect(() => {
+    async function fetchData() {
+      await checkUserAuth();
+    }
+    fetchData();
   }, []);
 
   return (
     <Router>
       <React.Fragment>
-        <MyNavbar setIsAuthorized={setIsAuthorized} />
-        <Container fluid>
-          <Switch>
-            <AuthRoute exact isAuthorized={isAuthorized} path="/Dash">
-              <Dashboard setSideState={setSideState} sideState={sideState} />
-            </AuthRoute>
-            <Route path="/" exact component={() => <Splash />} />
-            <Route path="/Register" exact component={Register} />
-            <Route
-              path="/Login"
-              exact
-              component={() => (
-                <Login
-                  setIsAuthorized={setIsAuthorized}
-                  isAuthorized={isAuthorized}
-                />
-              )}
-            />
-          </Switch>
-        </Container>
+        <MyNavbar
+          username={username}
+          setUsername={setUsername}
+          setIsAuthorized={setIsAuthorized}
+          isAuthorized={isAuthorized}
+        />
+
+        <Switch>
+          <AuthRoute exact isAuthorized={isAuthorized} path="/Dash">
+            <Dashboard setSideState={setSideState} sideState={sideState} />
+          </AuthRoute>
+          <Route path="/" exact component={() => <Splash />} />
+          <Route
+            path="/Register"
+            exact
+            component={() => <Register isAuthorized={isAuthorized} />}
+          />
+          <Route
+            path="/Login"
+            exact
+            component={() => (
+              <Login
+                setUsername={setUsername}
+                setIsAuthorized={setIsAuthorized}
+                isAuthorized={isAuthorized}
+              />
+            )}
+          />
+        </Switch>
       </React.Fragment>
     </Router>
   );

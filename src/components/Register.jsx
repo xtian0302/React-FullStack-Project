@@ -9,7 +9,7 @@ import Link from "react-router-dom/Link";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 
-const Register = () => {
+const Register = ({ isAuthorized }) => {
   const [registrationStatus, setRegistrationStatus] = useState(false);
   const [registerUsername, setRegisterUsername] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
@@ -23,7 +23,7 @@ const Register = () => {
         password: registerPassword,
       },
       withCredentials: true,
-      url: "http://localhost:4000/register",
+      url: "http://10.11.140.16:4000/register",
     }).then((res) => {
       console.log(res);
       if (res.status === 200) {
@@ -31,7 +31,7 @@ const Register = () => {
       }
     });
   };
-  switch (registrationStatus) {
+  switch (registrationStatus || isAuthorized) {
     case true:
       return (
         <Row>
@@ -45,7 +45,7 @@ const Register = () => {
                   account!
                 </p>
                 <Link to="/login" className="btn btn-primary">
-                  Log in now!
+                  Log In
                 </Link>
               </Card.Body>
             </Card>

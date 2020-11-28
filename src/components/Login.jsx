@@ -10,8 +10,7 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { Redirect } from "react-router-dom";
 
-const Login = ({ setIsAuthorized, isAuthorized }) => {
-  const [loginStatus, setLoginStatus] = useState(false);
+const Login = ({ setIsAuthorized, isAuthorized, setUsername }) => {
   const [loginUsername, setLoginUsername] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
@@ -24,25 +23,34 @@ const Login = ({ setIsAuthorized, isAuthorized }) => {
         password: loginPassword,
       },
       withCredentials: true,
-      url: "http://localhost:4000/login",
-    }).then(async (res) => {
-      console.log(res);
-      if (res.status === 200) {
-        await axios({
-          method: "GET",
-          withCredentials: true,
-          url: "http://localhost:4000/getUser",
-        }).then((res) => {
-          if (res.data) {
-            setIsAuthorized(true);
-          }
-          console.log(res.data);
-          setLoginStatus(true);
-        });
-      }
-    });
+      url: "http://10.11.140.16:4000/login",
+    })
+      .then(async (res) => {
+        console.log(res);
+        if (res.status === 200) {
+          await axios({
+            method: "GET",
+            withCredentials: true,
+            url: "http://10.11.140.16:4000/getUser",
+          })
+            .then((res) => {
+              if (res.data) {
+                setIsAuthorized(true);
+                setUsername(res.data.username);
+              }
+              console.log(res.data);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
-  switch (loginStatus || isAuthorized) {
+
+  switch (isAuthorized) {
     case true:
       return <Redirect to="/Dash" />;
     default:
