@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Card, Col } from "react-bootstrap";
-import { Pie, Radar } from "react-chartjs-2";
+import { Radar } from "react-chartjs-2";
 
 const ChartRadar = ({ ...rest }) => {
   useEffect(() => {

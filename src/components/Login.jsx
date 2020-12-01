@@ -23,7 +23,7 @@ const Login = ({ setIsAuthorized, isAuthorized, setUsername }) => {
         password: loginPassword,
       },
       withCredentials: true,
-      url: "http://10.11.140.16:4000/login",
+      url: "http://localhost:4000/login",
     })
       .then(async (res) => {
         console.log(res);
@@ -31,7 +31,7 @@ const Login = ({ setIsAuthorized, isAuthorized, setUsername }) => {
           await axios({
             method: "GET",
             withCredentials: true,
-            url: "http://10.11.140.16:4000/getUser",
+            url: "http://localhost:4000/getUser",
           })
             .then((res) => {
               if (res.data) {

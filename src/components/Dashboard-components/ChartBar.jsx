@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Card, Col } from "react-bootstrap";
-import { Bar, Line, Pie } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 
 const ChartBar = ({ ...rest }) => {
   useEffect(() => {
