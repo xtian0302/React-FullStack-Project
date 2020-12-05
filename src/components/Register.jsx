@@ -23,7 +23,7 @@ const Register = ({ isAuthorized }) => {
         password: registerPassword,
       },
       withCredentials: true,
-      url: "http://10.11.140.16:4000/register",
+      url: "/register",
     }).then((res) => {
       console.log(res);
       if (res.status === 200) {

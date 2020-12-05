@@ -10,7 +10,7 @@ const MyNavbar = ({ setIsAuthorized, isAuthorized, username, setUsername }) => {
     await axios({
       method: "GET",
       withCredentials: true,
-      url: "http://10.11.140.16:4000/logout",
+      url: "/logout",
     }).then((res) => {
       if (res.data) {
         setIsAuthorized(false);
@@ -29,7 +29,7 @@ const MyNavbar = ({ setIsAuthorized, isAuthorized, username, setUsername }) => {
           style={{ width: 30, height: 30 }}
         />
         <Link to="/" className="navbar-brand">
-          React-Client
+          Xtian0302's React Playground
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">

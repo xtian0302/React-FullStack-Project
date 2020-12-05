@@ -9,8 +9,8 @@ const Sidebar = ({ setSideState, sideState, setPage }) => {
   const mainClick = () => {
     setPage("main");
   };
-  const profileClick = () => {
-    setPage("profile");
+  const catClick = () => {
+    setPage("cat");
   };
   const statusClick = () => {
     setPage("status");
@@ -18,8 +18,8 @@ const Sidebar = ({ setSideState, sideState, setPage }) => {
   const eventsClick = () => {
     setPage("events");
   };
-  const shortcutsClick = () => {
-    setPage("shortcuts");
+  const covidClick = () => {
+    setPage("covid");
   };
   return (
     <>
@@ -37,36 +37,36 @@ const Sidebar = ({ setSideState, sideState, setPage }) => {
         />
       </div>
       <div className="list-group list-group-flush">
-        <a
+        <button
           className="list-group-item list-group-item-action bg-light"
           onClick={mainClick}
         >
           <i className="fas fa-tachometer-alt "></i>&nbsp; Dashboard
-        </a>
-        <a
+        </button>
+        <button
           className="list-group-item list-group-item-action bg-light"
-          onClick={shortcutsClick}
+          onClick={covidClick}
         >
-          <i className="fas fa-link "></i>&nbsp; Shortcuts
-        </a>
-        <a
+          <i className="fas fa-user-nurse"></i>&nbsp; CoVid API
+        </button>
+        <button
           className="list-group-item list-group-item-action bg-light"
           onClick={eventsClick}
         >
           <i className="fas fa-calendar-day "></i>&nbsp; Events
-        </a>
-        <a
+        </button>
+        <button
           className="list-group-item list-group-item-action bg-light"
-          onClick={profileClick}
+          onClick={catClick}
         >
-          <i className="fas fa-user "></i>&nbsp; Profile
-        </a>
-        <a
+          <i className="fas fa-cat "></i>&nbsp; Pictures of Cats
+        </button>
+        <button
           className="list-group-item list-group-item-action bg-light"
           onClick={statusClick}
         >
-          <i className="fas fa-question-circle "></i>&nbsp; Status
-        </a>
+          <i className="fas fa-question-circle "></i>&nbsp; Hurt Yourself
+        </button>
       </div>
       <div style={{ margin: 50, display: "flex", justifyContent: "center" }}>
         <button
@@ -74,12 +74,12 @@ const Sidebar = ({ setSideState, sideState, setPage }) => {
           className="btn btn-outline-dark"
           style={{
             margin: 10,
-            margin: "auto",
           }}
         >
           <i className="fas fa-arrow-left"></i>
         </button>
       </div>
+      <br />
     </>
   );
 };

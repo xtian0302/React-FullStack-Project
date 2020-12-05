@@ -18,20 +18,29 @@ const Login = ({ setIsAuthorized, isAuthorized, setUsername }) => {
     e.preventDefault();
     await axios({
       method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
       data: {
         username: loginUsername,
         password: loginPassword,
       },
       withCredentials: true,
-      url: "http://localhost:4000/login",
+      credentials: "include",
+      url: "/login",
     })
       .then(async (res) => {
-        console.log(res);
+        console.log("Login Success");
         if (res.status === 200) {
           await axios({
             method: "GET",
             withCredentials: true,
-            url: "http://localhost:4000/getUser",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            url: "/getUser",
           })
             .then((res) => {
               if (res.data) {
@@ -114,9 +123,9 @@ const Login = ({ setIsAuthorized, isAuthorized, setUsername }) => {
                       Login
                     </Button>
                     &nbsp;
-                    <Button variant="secondary" type="submit">
-                      Forgot Password
-                    </Button>
+                    <a href="#">
+                      <Button variant="secondary">Forgot Password</Button>
+                    </a>
                   </div>
                 </Form>
               </Card.Body>

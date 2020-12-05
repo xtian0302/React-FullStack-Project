@@ -18,7 +18,7 @@ function App() {
     await axios({
       method: "GET",
       withCredentials: true,
-      url: "http://10.11.140.16:4000/getUser",
+      url: "/getUser",
     }).then((res) => {
       if (res.data) {
         setIsAuthorized(true);

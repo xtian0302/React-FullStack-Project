@@ -1,53 +1,59 @@
 import React, { useState, useEffect } from "react";
-import { Card, Col } from "react-bootstrap";
+import axios from "axios";
+import { Card, Col, Spinner } from "react-bootstrap";
 import { Radar } from "react-chartjs-2";
 
 const ChartRadar = ({ ...rest }) => {
-  useEffect(() => {
-    setChartData({
-      labels: [
-        "Eating",
-        "Drinking",
-        "Sleeping",
-        "Designing",
-        "Coding",
-        "Cycling",
-        "Running",
-      ],
-      datasets: [
-        {
-          label: "My First dataset",
-          backgroundColor: "rgba(179,181,198,0.2)",
-          borderColor: "rgba(179,181,198,1)",
-          pointBackgroundColor: "rgba(179,181,198,1)",
-          pointBorderColor: "#fff",
-          pointHoverBackgroundColor: "#fff",
-          pointHoverBorderColor: "rgba(179,181,198,1)",
-          data: [65, 59, 90, 81, 56, 55, 40],
-        },
-        {
-          label: "My Second dataset",
-          backgroundColor: "rgba(255,99,132,0.2)",
-          borderColor: "rgba(255,99,132,1)",
-          pointBackgroundColor: "rgba(255,99,132,1)",
-          pointBorderColor: "#fff",
-          pointHoverBackgroundColor: "#fff",
-          pointHoverBorderColor: "rgba(255,99,132,1)",
-          data: [28, 48, 40, 19, 96, 27, 100],
-        },
-      ],
-    });
-  }, []);
   const [chartData, setChartData] = useState({});
-  return (
-    <Col {...rest}>
-      <Card id="pie">
-        <Card.Body>
-          <Radar data={chartData} options={{ maintainAspectRatio: false }} />
-        </Card.Body>
-      </Card>
-    </Col>
-  );
+
+  useEffect(() => {
+    getChartData();
+  }, []);
+
+  const getChartData = async () => {
+    await axios({
+      method: "GET",
+      url: "/getChartData",
+    }).then((res) => {
+      setChartData({
+        labels: res.data.labels,
+        datasets: [
+          {
+            label: res.data.datasetname,
+            backgroundColor: "rgba(159,243,229,0.2)",
+            borderColor: "rgba(159,243,229,1)",
+            borderWidth: 1,
+            hoverBackgroundColor: "rgba(159,243,229,0.4)",
+            hoverBorderColor: "rgba(159,243,229,1)",
+            data: res.data.data,
+          },
+        ],
+      });
+    });
+  };
+  if (Object.keys(chartData).length !== 0) {
+    return (
+      <Col {...rest}>
+        <Card id="pie">
+          <Card.Body>
+            <Radar data={chartData} options={{ maintainAspectRatio: false }} />
+          </Card.Body>
+        </Card>
+      </Col>
+    );
+  } else {
+    return (
+      <Col {...rest}>
+        <Card>
+          <Card.Body className="d-flex justify-content-center">
+            <Spinner animation="border" variant="secondary" role="status">
+              <span className="sr-only">Loading...</span>
+            </Spinner>
+          </Card.Body>
+        </Card>
+      </Col>
+    );
+  }
 };
 
 export default ChartRadar;

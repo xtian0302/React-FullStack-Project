@@ -1,13 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "./Dashboard-components/Sidebar.css";
 import Sidebar from "./Dashboard-components/Sidebar";
 import Main from "./Dashboard-components/Main";
 import Events from "./Dashboard-components/Events";
+import Cats from "./Dashboard-components/Cats";
+import Covid from "./Dashboard-components/Covid";
+import Status from "./Dashboard-components/Status";
+import axios from "axios";
 
 const Dashboard = ({ setSideState, sideState }) => {
   const [page, setPage] = useState("main");
+
+  const [joke, setJoke] = useState("");
+
+  useEffect(() => {
+    getDadJoke();
+  }, []);
+
+  const getDadJoke = async () => {
+    await axios({
+      method: "GET",
+      url: "https://icanhazdadjoke.com/",
+      headers: {
+        Accept: "text/plain",
+      },
+    }).then((res) => {
+      setJoke(res.data);
+    });
+  };
   const handleClick = () => {
     setSideState(!sideState);
   };
@@ -29,51 +51,21 @@ const Dashboard = ({ setSideState, sideState }) => {
           switch (page) {
             case "main":
               return <Main handleClick={handleClick} />;
-            case "shortcuts":
-              return (
-                <Col id="page-content-wrapper">
-                  <button
-                    className="btn btn-outline-dark"
-                    style={{ margin: 5 }}
-                    onClick={handleClick}
-                  >
-                    <i className="fas fa-bars"></i>
-                  </button>
-                  <h1>Shortcuts</h1>
-                </Col>
-              );
+            case "covid":
+              return <Covid handleClick={handleClick} />;
             case "events":
               return <Events handleClick={handleClick} />;
-            case "profile":
-              return (
-                <Col id="page-content-wrapper">
-                  <button
-                    className="btn btn-outline-dark"
-                    style={{ margin: 5 }}
-                    onClick={handleClick}
-                  >
-                    <i className="fas fa-bars"></i>
-                  </button>
-                  <h1>Profile</h1>
-                </Col>
-              );
+            case "cat":
+              return <Cats handleClick={handleClick} />;
             case "status":
-              return (
-                <Col id="page-content-wrapper">
-                  <button
-                    className="btn btn-outline-dark"
-                    style={{ margin: 5 }}
-                    onClick={handleClick}
-                  >
-                    <i className="fas fa-bars"></i>
-                  </button>
-                  <h1>Status</h1>
-                </Col>
-              );
+              return <Status handleClick={handleClick} />;
             default:
               return <Main handleClick={handleClick} />;
           }
         })()}
+        <span style={{ position: "fixed", bottom: 0, right: 0, zIndex: 1000 }}>
+          {joke} &nbsp;&nbsp;&nbsp;
+        </span>
       </Row>
     </div>
   );
